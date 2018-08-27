@@ -22,9 +22,9 @@ def order_points(pts):
     # whereas the bottom-left will have the largest difference
     diff = np.diff(pts, axis=1)
     # top-righ
-    rect[1] = pts[np.argmax(diff)]
+    rect[1] = pts[np.argmin(diff)]
     # bottom-left
-    rect[3] = pts[np.argmin(diff)]
+    rect[3] = pts[np.argmax(diff)]
     return rect
 
 
@@ -38,14 +38,14 @@ def four_point_transform(image, pts):
     w1 = np.sqrt((tl[0] - tr[0])**2 + (tl[1] - tr[1])**2)
     w2 = np.sqrt((bl[0] - br[0])**2 + (bl[1] - br[1])**2)
     # maxwidth = max w1,w2
-    maxW = max(w1, w2)
+    maxW = int(max(w1, w2))
 
     # compute the height as max(h1,h2)
     # h1 = dist b/w tl, bl
     h1 = np.sqrt((tl[0] - bl[0])**2 + (tl[1] - bl[1])**2)
     h2 = np.sqrt((tr[0] - br[0])**2 + (tr[1] - br[1])**2)
     # maxheight = max h1,h2
-    maxH = max(h1, h2)
+    maxH = int(max(h1, h2))
 
     # now that we have the dimensions of the new image, construct
     # the set of destination points to obtain a "birds eye view",
